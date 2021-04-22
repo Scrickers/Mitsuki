@@ -3,16 +3,20 @@ class Dispatcher {
 
     this.client = options.client;
     this.guild = options.guild;
-    this.text = options.text;
+    this.message = options.message;
     this.player = options.player;
     this.queue = [];
     this.current = null;
 
-    this.player.on('start', () =>
-      this.text.send(`Musique en cours: **${this.current.info.title}**`)
+    this.player.on('start', () => {
+      console.log(this.current);
+      if (!this.player.loop) this.message.util.send(`Musique en cours: **${this.current.info.title}**`)
         .catch(() => null)
+    }
     );
-    this.player.on('end', () => {
+    this.player.on('end', async () => {
+      console.log(this.current);
+      if (this.player.loop) await this.client.queue.handle(this.client.shoukaku.getNode(), this.current, this.message)
       this.play()
         .catch(() => {
           this.queue.length = 0;

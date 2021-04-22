@@ -7,6 +7,7 @@ class Queue extends Map {
   }
 
   async handle(node, track, message) {
+    console.log(track);
     track.user = message.author
     const exist = this.get(message.guild.id)
     if (!exist) {
@@ -17,7 +18,7 @@ class Queue extends Map {
       const dispatcher = new Dispatcher({
         client: this.client,
         guild: message.guild,
-        text: message.channel,
+        message: message,
         player
       });
       dispatcher.queue.push(track);

@@ -3,3 +3,4 @@ node_modules/
 lavalink/Lavalink.jar
 lavalink/logs/
 dev.js
+data/
