@@ -7,6 +7,7 @@ class Queue extends Map {
   }
 
   async handle(node, track, message) {
+    track.user = message.author
     const exist = this.get(message.guild.id)
     if (!exist) {
       const player = await node.joinVoiceChannel({
@@ -19,12 +20,10 @@ class Queue extends Map {
         text: message.channel,
         player
       });
-      track.user = message.author
       dispatcher.queue.push(track);
       this.set(message.guild.id, dispatcher);
       return dispatcher;
     }
-    track.user = message.author
     exist.queue.push(track);
     return null;
   }

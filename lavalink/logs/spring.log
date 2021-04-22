@@ -441,3 +441,4 @@
 2021-04-22 12:10:21.881  INFO 3812 --- [XNIO-1 task-39] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:51812
 2021-04-22 12:10:21.883  INFO 3812 --- [XNIO-1 task-39] lavalink.server.io.SocketServer          : Connection successfully established from /127.0.0.1:51812
 2021-04-22 12:11:45.022  INFO 3812 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:51812 -- CloseStatus[code=1006, reason=]
+2021-04-22 12:11:45.023  INFO 3812 --- [XNIO-1 I/O-8] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
