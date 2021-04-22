@@ -1,3 +1,4 @@
 node_modules/
 .env
 lavalink/Lavalink.jar
+dev.js

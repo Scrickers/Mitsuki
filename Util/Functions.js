@@ -7,7 +7,7 @@ module.exports = {
     const min = Math.floor((ms / (1000 * 60)) % 60).toString()
     const hrs = Math.floor((ms / (1000 * 60 * 60)) % 60).toString()
     const days = Math.floor((ms / (1000 * 60 * 60 * 24)) % 60).toString()
-    return `\`${days.padStart(1, '0')} days, ${hrs.padStart(2, '0')} hours, ${min.padStart(2, '0')} minutes, and ${sec.padStart(2, '0')} seconds\``
+    return [sec, min, hrs, days]
   },
 
   generateKey: function () {

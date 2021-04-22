@@ -45,8 +45,7 @@ class playCommand extends Command {
       return
     }
     const searchData = await node.rest.resolve(sc, "youtube")
-    console.log(searchData);
-    if (!searchData.tracks.length) return message.util.send("Aucunes musique n'a été trouvé")
+    if (!searchData || !searchData.tracks.length) return message.util.send("Aucunes musique n'a été trouvé")
     const track = searchData.tracks.shift()
     const res = await this.client.queue.handle(node, track, message)
     message.util.send(`Musique ajouté: ${track.info.title}`)

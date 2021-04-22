@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo')
-
+const { duration } = require("../../Util/Functions")
 class playCommand extends Command {
   constructor() {
     super('nowplaying', {
@@ -8,49 +8,72 @@ class playCommand extends Command {
       description: {
         usage: 'nowplaying',
         examples: ['nowplaying'],
-        description: 'Donne des information sur l\'avancement de la musique'
+        description: 'Donne des information sur la musique actuelle'
       },
       cooldown: 3000,
       ratelimit: 3
     })
   }
 
-  async exec(message, { search }) {
+  async exec(message) {
+    const dispatcher = this.client.queue.get(message.guild.id)
+    if (!dispatcher) return message.util.send("Je ne joue actuellement pas dans votre serveur")
 
-    const sc = message.attachments.first() || search
-
-    const { channel } = message.member.voice
-    if (!channel) return message.util.send("Vous devez rejoindre un salon vocal avant")
-    const node = this.client.shoukaku.getNode();
-    if (this.checkURL(sc)) {
-      const result = await node.rest.resolve(sc);
-      if (!result) return message.util.send("Aucunes musique n'a été trouvé")
-      const { type, tracks, playlistName } = result
-      const track = tracks.shift()
-      const isPlaylist = type === "PLAYLIST"
-      const res = await this.client.queue.handle(node, track, message)
-      if (isPlaylist) {
-        for (const track of tracks) await this.client.queue.handle(node, track, message)
+    const durations = dispatcher.current.info.length;
+    const progression = dispatcher.player.position;
+    const progressBar = [
+      "▬",
+      "▬",
+      "▬",
+      "▬",
+      "▬",
+      "▬",
+      "▬",
+      "▬",
+      "▬",
+      "▬",
+      "▬",
+      "▬",
+      "▬",
+      "▬",
+      "▬",
+      "▬"
+    ];
+    const calcul = Math.round(
+      progressBar.length *
+      (progression / 1000 / (durations / 1000))
+    );
+    progressBar[calcul] = "🔘";
+    const times = time(progression, durations)
+    return message.util.send({
+      embed: {
+        description:
+          `[${dispatcher.current.info.title}](${dispatcher.current.info.uri})\n\n\`[` +
+          times[0] +
+          "]` " +
+          progressBar.join("") +
+          " `[" +
+          times[1] +
+          "]`",
+        color: 0x36393f,
+        timestamp: new Date(),
+        footer: {
+          text: `Ajouté par: ${dispatcher.current.user.username}`
+        },
+        thumbnail: {
+          url: `https://img.youtube.com/vi/${dispatcher.current.info.identifier}/maxresdefault.jpg`
+        }
       }
-      message.util.send(isPlaylist ? `La playlist ${playlistName} a été ajouté a la queue` : `Musique ajouté: ${track.info.title}`)
-      if (res) await res.play()
-      return
-    }
-    const searchData = await node.rest.resolve(sc, "youtube")
-    console.log(searchData);
-    if (!searchData.tracks.length) return message.util.send("Aucunes musique n'a été trouvé")
-    const track = searchData.tracks.shift()
-    const res = await this.client.queue.handle(node, track, message)
-    message.util.send(`Musique ajouté: ${track.info.title}`)
-    if (res) await res.play()
+    })
   }
-  checkURL(string) {
-    try {
-      new URL(string);
-      return true;
-    } catch (error) {
-      return false;
-    }
+}
+function time(progression, durations) {
+  if (durations > 60 * 60 * 1000) {
+    return [`${duration(progression)[2]}:${duration(progression)[1].length == 1 ? "0" + duration(progression)[1] : duration(progression)[1]}:${duration(progression)[0].length == 1 ? "0" + duration(progression)[0] : duration(progression)[0]}`, `${duration(durations)[2]}:${duration(durations)[1]}:${duration(durations)[0]}`]
+  } else if (durations > 60 * 1000) {
+    return [`${duration(progression)[1]}:${duration(progression)[0].length == 1 ? "0" + duration(progression)[0] : duration(progression)[0]}`, `${duration(durations)[1]}:${duration(durations)[0]}`]
+  } else {
+    return [duration(progression)[0].length == 1 ? "0" + duration(progression)[0] : duration(progression)[0], duration(durations)[0].length == 1 ? "0" + duration(durations)[0] : duration(durations)[0]]
   }
 }
 

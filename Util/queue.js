@@ -19,10 +19,12 @@ class Queue extends Map {
         text: message.channel,
         player
       });
+      track.user = message.author
       dispatcher.queue.push(track);
       this.set(message.guild.id, dispatcher);
       return dispatcher;
     }
+    track.user = message.author
     exist.queue.push(track);
     return null;
   }
