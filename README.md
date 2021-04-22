@@ -27,15 +27,25 @@ cd Mitsuki
 npm i 
 ```
 puis configuré le fichier .env
+
+Télécharger [Lavalink.jar](https://github.com/freyacodes/Lavalink) et le placer da,s le dossier lavalink
 # Lancement
 
 ### Mitsuki
 ``` 
-yarn start
+pm2 start index.js
 ```
 ou
 ``` 
 node index.js
+```
+### lavalink
+``` 
+pm2 start process.json
+```
+ou
+``` 
+java -jar process.json
 ```
 
 # License
