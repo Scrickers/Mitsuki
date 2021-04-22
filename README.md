@@ -28,7 +28,7 @@ npm i
 ```
 puis configuré le fichier .env
 
-Télécharger [Lavalink.jar](https://github.com/freyacodes/Lavalink) et le placer da,s le dossier lavalink
+Télécharger [Lavalink.jar](https://github.com/freyacodes/Lavalink) et le placer dans le dossier lavalink
 # Lancement
 
 ### Mitsuki
