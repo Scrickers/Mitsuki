@@ -18,7 +18,7 @@ class playCommand extends Command {
         examples: ['play belle notre dame de Paris', "play https://www.youtube.com/watch?v=MEODTN06mJE", 'p https://www.youtube.com/watch?v=HRaoYuRKBaA&list=PL2R75x3ZazUDRZKsDU9-pi85DJ3WdGudI'],
         description: 'joue une musique'
       },
-      cooldown: 3000,
+      cooldown: 8000,
       ratelimit: 3
     })
   }

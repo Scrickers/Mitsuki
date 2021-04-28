@@ -10,13 +10,13 @@ class stopCommand extends Command {
         examples: ['stop'],
         description: 'arrete une musique'
       },
-      cooldown: 3000,
+      cooldown: 5000,
       ratelimit: 3
     })
   }
 
   async exec(message) {
-    if (message.member.voice.channelID) return message.util.send("Vous devez rejoindre un salon vocal")
+    if (!message.member.voice.channelID) return message.util.send("Vous devez rejoindre un salon vocal")
     const dispatcher = this.client.queue.get(message.guild.id)
     if (!dispatcher) return message.util.send("Je ne joue actuellement pas dans votre serveur")
 

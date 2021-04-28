@@ -1,6 +1,6 @@
 const { Command } = require('discord-akairo')
 const { duration } = require("../../Util/Functions")
-class playCommand extends Command {
+class nowPlayingCommand extends Command {
   constructor() {
     super('nowplaying', {
       aliases: ['nowplaying', "np"],
@@ -10,8 +10,8 @@ class playCommand extends Command {
         examples: ['nowplaying'],
         description: 'Donne des information sur la musique actuelle'
       },
-      cooldown: 3000,
-      ratelimit: 3
+      cooldown: 6000,
+      ratelimit: 1
     })
   }
 
@@ -77,4 +77,4 @@ function time(progression, durations) {
   }
 }
 
-module.exports = playCommand
+module.exports = nowPlayingCommand

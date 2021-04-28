@@ -10,7 +10,7 @@ class skipCommand extends Command {
         examples: ['skip'],
         description: 'skip une musique'
       },
-      cooldown: 3000,
+      cooldown: 6000,
       ratelimit: 3
     })
   }
