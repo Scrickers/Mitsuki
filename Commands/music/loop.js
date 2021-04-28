@@ -1,5 +1,5 @@
 const { Command } = require('discord-akairo')
-class playCommand extends Command {
+class loopCommand extends Command {
   constructor() {
     super('loop', {
       aliases: ['loop'],
@@ -9,7 +9,7 @@ class playCommand extends Command {
         examples: ['loop'],
         description: 'repete une musique jusqu\'a temps que le mode loop soit desactivé '
       },
-      cooldown: 3000,
+      cooldown: 10000,
       ratelimit: 3
     })
   }
@@ -19,13 +19,13 @@ class playCommand extends Command {
     if (!dispatcher) return message.util.send("Je ne joue actuellement pas dans votre serveur")
     if (!dispatcher.player.loop) {
       dispatcher.player.loop = true
-      return message.util.send("Vous avez activé le mode loop")
+      return message.util.send("Vous avez activé le mode loop.")
     }
     else {
       dispatcher.player.loop = false
-      return message.util.send("Vous avez desactivé le mode loop")
+      return message.util.send("Vous avez desactivé le mode loop.")
     }
   }
 }
 
-module.exports = playCommand
+module.exports = loopCommand
