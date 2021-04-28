@@ -3,7 +3,6 @@ const { Database } = require('sqlite3');
 const { randomNumber } = require('./Functions');
 const db = new Database("./data/db.sqlite")
 module.exports = {
-
   get(sql, params = []) {
     return new Promise((resolve, reject) => {
       db.get(sql, params, (err, result) => {
@@ -94,6 +93,7 @@ module.exports = {
   },
   async addXp(userId, serverId) {
     const user = await this.getUser(userId, serverId)
+    console.log(user);
     const guilds = await this.getGuild(serverId);
     user.Exp += randomNumber(1, 6) * guilds.XpMulti;
 
@@ -111,7 +111,7 @@ module.exports = {
   },
   all(sql, params = []) {
     return new Promise((resolve, reject) => {
-      this.db.all(sql, params, (err, rows) => {
+      db.all(sql, params, (err, rows) => {
         if (err) {
           console.log(err);
           reject(err);
