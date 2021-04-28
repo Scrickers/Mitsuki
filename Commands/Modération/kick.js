@@ -58,7 +58,7 @@ class kickCommand extends Command {
         })
       })
       .catch(() => {
-        message.reply('Je ne peux pas ban cet utilisateur!')
+        message.reply('Je ne peux pas kick cet utilisateur!')
       })
   }
 }
