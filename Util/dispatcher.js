@@ -10,7 +10,7 @@ class Dispatcher {
 
     this.player.on('start', () => {
       console.log(this.current);
-      if (!this.player.loop) this.message.util.send(`Musique en cours: **${this.current.info.title}**`)
+      if (!this.player.loop) this.message.channel.send(`Musique en cours: **${this.current.info.title}**`)
         .catch(() => null)
     }
     );
