@@ -21,7 +21,7 @@ class unMuteCommand extends Command {
       cooldown: 4000,
       ratelimit: 3,
       userPermissions: ['MANAGE_ROLES'],
-      clientPermissions: ['MANAGE_CHANNELS']
+      clientPermissions: ['MANAGE_ROLES']
     })
   }
 
