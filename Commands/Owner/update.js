@@ -20,8 +20,6 @@ class updateCommand extends Command {
 
   async exec(message) {
     this.handler.removeAll()
-    console.log(require("child_process").execSync("git fetch --all").toString());
-    console.log(require("child_process").execSync("git reset --hard origin/main").toString());
     console.log(require("child_process").execSync("git pull -f").toString());
     this.client.commandHandler.loadAll()
     message.util.send("Les commandes on été reload")
