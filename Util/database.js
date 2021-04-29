@@ -93,7 +93,6 @@ module.exports = {
   },
   async addXp(userId, serverId) {
     const user = await this.getUser(userId, serverId)
-    console.log(user);
     const guilds = await this.getGuild(serverId);
     user.Exp += randomNumber(1, 6) * guilds.XpMulti;
 
