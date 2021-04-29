@@ -9,13 +9,11 @@ class Dispatcher {
     this.current = null;
 
     this.player.on('start', () => {
-      console.log(this.current);
       if (!this.player.loop) this.message.channel.send(`Musique en cours: **${this.current.info.title}**`)
         .catch(() => null)
     }
     );
     this.player.on('end', async () => {
-      console.log(this.current);
       if (this.player.loop) await this.client.queue.handle(this.client.shoukaku.getNode(), this.current, this.message)
       this.play()
         .catch(() => {

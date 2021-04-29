@@ -7,7 +7,6 @@ class Queue extends Map {
   }
 
   async handle(node, track, message) {
-    console.log(track);
     track.user = message.author
     const exist = this.get(message.guild.id)
     if (!exist) {
