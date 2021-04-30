@@ -34,6 +34,7 @@ class joinCommand extends Command {
       `UPDATE Users SET KuranId = ?, KuranJoin = ? WHERE UserId = ? AND ServerId = ?;`,
       [fac.KuranId, Date.now(), message.author.id, message.guild.id]
     );
+    message.member.roles.add(fac.RoleId)
     message.util.send(`Vous avez bien rejoint la faction ${name}`)
   }
 }

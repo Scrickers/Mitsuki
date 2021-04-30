@@ -26,9 +26,17 @@ class leaveCommand extends Command {
       `UPDATE Users SET KuranId = ?, KuranJoin = ? WHERE UserId = ? AND ServerId = ?;`,
       [0, 0, message.author.id, message.guild.id]
     );
+    message.member.roles.remove(fac.RoleId)
     if (fac.OwnerID === message.author.id) {
-      if ((await data.all("SELECT * FROM Users WHERE KuranId = ?;", [fac.KuranId])).length === 0) data.run("DELETE FROM Kuran WHERE KuranId = ?;", [user.KuranId])
-      else (await data.all("SELECT * FROM Users WHERE KuranId = ? ORDER BY KuranJoin;", [fac.KuranId]))[0]
+      if ((await data.all("SELECT * FROM Users WHERE KuranId = ?;", [fac.KuranId])).length === 0) {
+        message.guild.roles.cache.get(fac.RoleId).delete()
+        data.run("DELETE FROM Kuran WHERE KuranId = ?;", [user.KuranId])
+      }
+      else {
+        await database.run(
+          `UPDATE Kuran SET OwnerID = ? WHERE KuranId = ?;`,
+          [(await database.all("SELECT * FROM Users WHERE KuranId = ? ORDER BY KuranJoin;", [fac.KuranId]))[0].UserId, user.KuranId])
+      }
     }
     message.util.send(`Vous venez de quitté la faction ${fac.Name}`)
   }
