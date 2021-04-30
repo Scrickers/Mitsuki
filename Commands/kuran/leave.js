@@ -9,7 +9,7 @@ class leaveCommand extends Command {
       description: {
         usage: 'leave',
         examples: ['leave'],
-        description: 'Permet de quitté votre faction'
+        description: 'Quitte votre faction.'
 
       },
       cooldown: 8000,
@@ -38,7 +38,7 @@ class leaveCommand extends Command {
           [(await database.all("SELECT * FROM Users WHERE KuranId = ? ORDER BY KuranJoin;", [fac.KuranId]))[0].UserId, user.KuranId])
       }
     }
-    message.util.send(`Vous venez de quitté la faction ${fac.Name}`)
+    message.util.send(`Vous venez de quitter la faction ${fac.Name}.`)
   }
 }
 

@@ -12,7 +12,7 @@ class infoCommand extends Command {
       description: {
         usage: 'info <Nom>',
         examples: ['info', 'info Teams'],
-        description: 'Donne des information sur une faction'
+        description: 'Donne des informations sur une faction.'
       },
       cooldown: 8000,
       ratelimit: 3,
@@ -24,7 +24,7 @@ class infoCommand extends Command {
     let fac
 
     const user = await data.getUser(message.author.id, message.guild.id)
-    if (!user.KuranId && !name) return message.util.send("vous devez indiquez le nom de la faction")
+    if (!user.KuranId && !name) return message.util.send("Vous devez indiquer le nom de la faction.")
     if (!name) {
       fac = await data.get("SELECT * FROM Kuran WHERE KuranId = ?", [user.KuranId])
     }
@@ -34,8 +34,8 @@ class infoCommand extends Command {
     const date = new Date(fac.Created)
     message.util.send({
       embed: {
-        title: `information de la faction ${fac.Name}`,
-        description: fac.description || "Aucunes description pour cette faction",
+        title: `Information de la faction ${fac.Name}`,
+        description: fac.description || "Aucune description pour cette faction",
         timestamp: new Date(),
         thumbnail: {
           url: fac.Avatar || "https://taobabe.files.wordpress.com/2013/01/anime-girl-questionmark.jpg?w=300&h=240"

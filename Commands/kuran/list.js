@@ -9,7 +9,7 @@ class listCommand extends Command {
       description: {
         usage: 'list',
         examples: ['lists'],
-        description: 'indique tous les faction present sur le serveur'
+        description: 'Indique toutes les factions présentes sur le serveur.'
       },
       cooldown: 8000,
       ratelimit: 3,
@@ -20,7 +20,7 @@ class listCommand extends Command {
   async exec(message) {
     const facs = await data.all("SELECT * FROM Kuran WHERE ServerId = ? ORDER BY Points DESC;", [message.guild.id])
     const embed = {
-      title: "Voici la list des faction sur le serveur",
+      title: "List des factions sur le serveur",
       fields: []
     }
     for (let i = 0; i < facs.length; i++) {

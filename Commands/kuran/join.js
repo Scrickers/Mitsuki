@@ -17,7 +17,7 @@ class joinCommand extends Command {
       description: {
         usage: 'join',
         examples: ['join [Name]'],
-        description: 'Permet de rejoindre une faction'
+        description: 'Rejoint une faction'
       },
       cooldown: 8000,
       ratelimit: 3,
@@ -27,15 +27,15 @@ class joinCommand extends Command {
 
   async exec(message, { name }) {
     const user = await data.getUser(message.author.id, message.guild.id)
-    if (user.KuranId) return message.util.send("Vous avez deja une faction")
+    if (user.KuranId) return message.util.send("Vous avez déjà une faction.")
     const fac = await data.get("SELECT * FROM Kuran WHERE ServerId = ? AND Name = ?;", [message.guild.id, name])
-    if (!fac) return message.util.send(`Aucune faction avec le nom ${name} a été trouvé`)
+    if (!fac) return message.util.send(`Aucune faction avec le nom ${name} n'a été trouvé.`)
     await data.run(
       `UPDATE Users SET KuranId = ?, KuranJoin = ? WHERE UserId = ? AND ServerId = ?;`,
       [fac.KuranId, Date.now(), message.author.id, message.guild.id]
     );
     message.member.roles.add(fac.RoleId)
-    message.util.send(`Vous avez bien rejoint la faction ${name}`)
+    message.util.send(`Vous avez bien rejoint la faction ${name}.`)
   }
 }
 

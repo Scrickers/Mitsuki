@@ -27,9 +27,9 @@ class createCommand extends Command {
 
   async exec(message, { name }) {
     const user = await data.getUser(message.author.id, message.guild.id)
-    if (user.KuranId) return message.util.send("vous avez deja une faction")
+    if (user.KuranId) return message.util.send("Vous avez déjà une faction.")
     let fac = await data.get("SELECT * FROM Kuran WHERE Name = ? AND ServerId = ?;", [name, message.guild.id])
-    if (fac) return message.util.send(`La faction avec le nom ${name} existe déjà`)
+    if (fac) return message.util.send(`La faction avec le nom ${name} existe déjà.`)
     const role = await message.guild.roles.create({ data: { name: name, color: "#" + Math.floor(Math.random() * 16777215).toString(16) } })
 
     await data.run(`INSERT INTO Kuran (OwnerID, ServerId, RoleId, Name, Avatar, Description, Type, MaxMember, Created, Points)
@@ -43,7 +43,7 @@ class createCommand extends Command {
       [fac.KuranId, Date.now(), message.author.id, message.guild.id]
     );
 
-    message.util.send(`Votre faction ${name} a été crée`)
+    message.util.send(`Votre faction ${name} a été créé.`)
   }
 }
 
